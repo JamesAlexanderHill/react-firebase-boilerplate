@@ -1,22 +1,11 @@
 {
   "name": "react-firebase-boilerplate",
   "version": "1.0.0",
-  "description": "A boilerplate React app with Firebase authentication",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "watch": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JamesAlexanderHill/react-firebase-boilerplate.git"
-  },
-  "author": "James Hill",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JamesAlexanderHill/react-firebase-boilerplate/issues"
-  },
-  "homepage": "https://github.com/JamesAlexanderHill/react-firebase-boilerplate#readme",
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1"

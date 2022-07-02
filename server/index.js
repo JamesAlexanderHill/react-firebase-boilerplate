@@ -1,14 +1,18 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: '../.env' });
-const app = express();
-const port = process.env.PORT || 3001;
+const api = require('./routes/api');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+dotenv.config({ path: '../.env' });
+const port = process.env.SVR_PORT || 3001;
+
+const app = express();
+
+app.use('/api', api);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server listening on port ${port}`);
+});

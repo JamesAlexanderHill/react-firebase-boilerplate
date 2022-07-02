@@ -1,0 +1,5 @@
+./client/.gitignore
+./client/README.md
+./client/node_modules
+
+./server/node_modules
