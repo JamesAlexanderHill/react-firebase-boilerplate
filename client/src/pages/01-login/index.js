@@ -27,7 +27,6 @@ const P01Login = () => {
     }, [user, from, navigate])
 
     const responseGoogle = (response) => {
-        console.log('responseGoogle', response);
         const idToken = response.credential;
 
         login(idToken, () => navigate(from, { replace: true, from: '/settings/account' }));
