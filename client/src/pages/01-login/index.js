@@ -5,7 +5,7 @@ import { SignInWithGoogle } from 'react-sign-in-with-google';
 import T01Login from "../../components/templates/01-login";
 
 import useAuth from "../../contexts/auth";
-import {GOOGLE_CLIENT_ID} from '../../util/constants';
+import {GOOGLE_WEB_CLIENT_ID} from '../../util/constants';
 
 const P01Login = () => {
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ const P01Login = () => {
 
         login(idToken, () => navigate(from, { replace: true, from: '/settings/account' }));
     };
-    const googleButton = <SignInWithGoogle clientId={GOOGLE_CLIENT_ID} handleGoogleSignIn={responseGoogle} />;
+    const googleButton = <SignInWithGoogle clientId={GOOGLE_WEB_CLIENT_ID} handleGoogleSignIn={responseGoogle} />;
 
     return (
         <T01Login
