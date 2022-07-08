@@ -1,4 +1,4 @@
-# react-firebase-boilerplate
+# React Firebase Boilerplate
 A boilerplate ReactJS application (create-react-app) with an ExpressJS server and Firebase authentication.
 
 ## Development
