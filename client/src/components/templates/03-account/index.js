@@ -11,15 +11,15 @@ const T03Account = ({
     const userActions = [
         {
             label: "Logout",
-            onClick: logout,
+            onClick: () => logout(),
         },
     ];
     return (
         <L03MainContent>
             <O01ProfileActionSection
-                name={user.displayName}
+                name={user.name}
                 email={user.email}
-                photoURL={user.photoURL}
+                photoURL={user.picture}
                 actions={userActions}
                 hasBackground={true}
             />

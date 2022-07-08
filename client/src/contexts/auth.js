@@ -3,7 +3,7 @@ import React, {createContext, useContext, useState} from "react";
 import {useLocation, Navigate} from "react-router-dom";
 import noop from 'lodash/noop';
 
-import { USER_SESSION_KEY } from "../util/constants";
+import { SESSION_USER_KEY, SESSION_JWT_KEY } from "../util/constants";
 
 const AuthContext = createContext(null);
 const useAuth = () => {
@@ -11,33 +11,49 @@ const useAuth = () => {
 }
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem(USER_SESSION_KEY)));
+    const [jwt, setJwt] = useState(JSON.parse(sessionStorage.getItem(SESSION_JWT_KEY)));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem(SESSION_USER_KEY)));
 
+    const authFetch = (url, method = 'GET', body = null, bearer) => fetch(url, {
+        method: method,
+        headers: {
+            'Authorization': `Bearer ${bearer || jwt}`,
+        },
+        body,
+    });
     const login = (idToken, cb = noop) => {
-        fetch("/api/auth/google/login",
-            {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },                
-                body: JSON.stringify({idToken})
+        /**
+         * This is a protected route.
+         * We will verify the JWT server side and return some user data.
+         */
+        authFetch('api/user/profile', 'GET', null, idToken)
+            .then((res) => {
+                if (res.ok) {return res.json();}
+                
+                throw new Error(`(${res.status}) Unable to request user profile`);
             })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log('login res', data);
-                const {user} = data.payload;
-                sessionStorage.setItem(USER_SESSION_KEY, JSON.stringify(user));
+            .then((user) => {
+                // set session storage + state
+                sessionStorage.setItem(SESSION_JWT_KEY, JSON.stringify(idToken));
+                setJwt(idToken);
+                sessionStorage.setItem(SESSION_USER_KEY, JSON.stringify(user));
                 setUser(user);
                 cb();
+            })
+            .catch((err) => {
+                // clear session storage + state
+                logout();
+                console.error(err);
             });
     };
     const logout = (cb = noop) => {
-        sessionStorage.removeItem(USER_SESSION_KEY);
+        sessionStorage.removeItem(SESSION_JWT_KEY);
+        setJwt(null);
+        sessionStorage.removeItem(SESSION_USER_KEY);
         setUser(null);
         cb();
     };
-    const value = {user, login, logout};
+    const value = {user, authFetch, login, logout};
   
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
