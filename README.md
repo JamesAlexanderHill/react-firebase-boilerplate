@@ -24,11 +24,7 @@ Some `.env` variables that need to be defined in the root of the project:
 - `SVR_PORT` - `3001` by default
 - `PROD_PORT` - `80` by default
 - `NODE_ENV` - `production` or `development`
-- `API_KEY` - Firebase config
-- `AUTH_DOMAIN` - Firebase config
-- `PROJECT_ID` - Firebase config
-- `STORAGE_BUCKET` - Firebase config
-- `MESSAGING_SENDER_ID` - Firebase config
-- `APP_ID` - Firebase config
+- `DB_FILENAME` - `development_sqlite.db` by default
+- `GOOGLE_WEB_CLIENT_ID` - Need to generate an OAuth credential in Google Cloud
 
 Also you need to set the `GOOGLE_WEB_CLIENT_ID` in `client/src/util/constants.js`.
