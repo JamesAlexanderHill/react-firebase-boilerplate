@@ -1,5 +1,5 @@
 # react-firebase-boilerplate
-A boilerplate React app with Firebase authentication
+A boilerplate React app with Firebase authentication using NodeJS.
 
 ## Development
 `npm run watch`
