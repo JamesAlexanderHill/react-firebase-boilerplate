@@ -2,9 +2,9 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 
-const api = require('./routes/api');
-
 dotenv.config({ path: '../.env' });
+
+const api = require('./routes/api');
 const port = process.env.SVR_PORT || 3001;
 
 const app = express();

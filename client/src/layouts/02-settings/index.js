@@ -2,11 +2,9 @@ import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+    flex-grow: 1;
     display: flex;
     height: 100vh;
-`;
-const StyledSection = styled.section`
-    flex-grow: 1;
 `;
 
 const L02Settings = () => {
@@ -17,9 +15,7 @@ const L02Settings = () => {
                 <p>Settings</p>
                 <Link to="/settings/account">Account</Link>
             </aside>
-            <StyledSection>
-                <Outlet />
-            </StyledSection>
+            <Outlet />
         </Wrapper>
     )
 }

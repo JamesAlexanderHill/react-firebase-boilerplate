@@ -13,10 +13,24 @@ const useAuth = () => {
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(JSON.parse(sessionStorage.getItem(USER_SESSION_KEY)));
 
-    const login = (user, cb = noop) => {
-        sessionStorage.setItem(USER_SESSION_KEY, JSON.stringify(user));
-        setUser(user);
-        cb();
+    const login = (idToken, cb = noop) => {
+        fetch("/api/auth/google/login",
+            {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },                
+                body: JSON.stringify({idToken})
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log('login res', data);
+                const {user} = data.payload;
+                sessionStorage.setItem(USER_SESSION_KEY, JSON.stringify(user));
+                setUser(user);
+                cb();
+            });
     };
     const logout = (cb = noop) => {
         sessionStorage.removeItem(USER_SESSION_KEY);

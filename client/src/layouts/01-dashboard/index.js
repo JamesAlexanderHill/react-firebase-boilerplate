@@ -10,9 +10,6 @@ const StyledAside = styled.aside`
     flex-direction: column;
     justify-content: space-between;
 `;
-const StyledMain = styled.main`
-    flex-grow: 1;
-`;
 
 const L01Dashboard = () => {
     return (
@@ -25,9 +22,7 @@ const L01Dashboard = () => {
                     <Link to='/settings/account'>Settings</Link>
                 </div>
             </StyledAside>
-            <StyledMain>
-                <Outlet />
-            </StyledMain>
+            <Outlet />
         </Wrapper>
     );
 }

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import {
-    useNavigate,
-    useLocation,
-} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { SignInWithGoogle } from 'react-sign-in-with-google';
+
+import T01Login from "../../components/templates/01-login";
 
 import useAuth from "../../contexts/auth";
+import {GOOGLE_CLIENT_ID} from '../../util/constants';
 
 const P01Login = () => {
     const navigate = useNavigate();
@@ -25,20 +26,18 @@ const P01Login = () => {
         if (user) {navigate('/settings/account', { replace: true, from: from })};
     }, [user, from, navigate])
 
-    const handleLogin = () => login(
-        {name: 'James Hill'},
-        /**
-         * Navigate to where they were before they logged in.
-         * If the user clicks back, send them to the account page instead.
-         */
-        () => navigate(from, { replace: true, from: '/settings/account' })
-    );
+    const responseGoogle = (response) => {
+        console.log('responseGoogle', response);
+        const idToken = response.credential;
+
+        login(idToken, () => navigate(from, { replace: true, from: '/settings/account' }));
+    };
+    const googleButton = <SignInWithGoogle clientId={GOOGLE_CLIENT_ID} handleGoogleSignIn={responseGoogle} />;
 
     return (
-        <>
-            <h1>Login</h1>
-            <button onClick={handleLogin}>Set User</button>
-        </>
+        <T01Login
+            googleButton={googleButton}
+        />
     );
 };
 
