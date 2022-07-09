@@ -1,5 +1,5 @@
-# React Firebase Boilerplate
-A boilerplate ReactJS application (create-react-app) with an ExpressJS server and Firebase authentication.
+# React Google Auth Boilerplate
+A boilerplate ReactJS application (create-react-app) with an ExpressJS server and Google login using Google Identity.
 
 ## Development
 `npm run watch`
