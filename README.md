@@ -1,6 +1,13 @@
 # React Google Auth Boilerplate
 A boilerplate ReactJS application (create-react-app) with an ExpressJS server and Google login using Google Identity.
 
+## Features
+- Sign-in with google account button
+- Auth context provider that stores Google JWT + user data in session storage
+- Auth context exposes an authFetch method that automatically adds the JWT as a bearer token
+- ExpressJS server that verifies Google JWT + injects user object into authenticated requests
+- Sqlite db that associates a uuid with an email. Allowing additional user data to be stored and associated with a Google account
+
 ## Development
 `npm run watch`
 
