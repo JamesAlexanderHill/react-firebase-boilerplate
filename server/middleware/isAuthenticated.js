@@ -1,7 +1,7 @@
 const {OAuth2Client} = require('google-auth-library');
 const { v4: uuidv4 } = require('uuid');
 
-const db = require('../db');
+const {db, GET_USER_UUID_BY_EMAIL_SQL, ADD_NEW_USER_SQL} = require('../db');
 
 const client = new OAuth2Client(process.env.GOOGLE_WEB_CLIENT_ID);
 
@@ -19,7 +19,7 @@ const isAuthenticated = (req, res, next) => {
         const {email, name, picture, given_name, family_name} = payload;
 
         // get id of user from data base using email.
-        const GET_USER_UUID_BY_EMAIL_SQL = `SELECT user_uuid FROM users WHERE email=$email`;
+        // const GET_USER_UUID_BY_EMAIL_SQL = `SELECT user_uuid FROM users WHERE email=$email`;
 
         db.get(GET_USER_UUID_BY_EMAIL_SQL, {$email: email}, function(err, row) {
             if (err) {
@@ -30,7 +30,6 @@ const isAuthenticated = (req, res, next) => {
 
             if (!row) {
                 // create new user in db
-                const ADD_NEW_USER_SQL = 'INSERT INTO users VALUES ($uuid, $email)';
                 const uuid = uuidv4();
                 db.run(ADD_NEW_USER_SQL, {$uuid: uuid, $email: email}, function(err) {
                     if (err) {

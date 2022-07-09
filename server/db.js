@@ -6,4 +6,10 @@ db.serialize(() => {
     db.run(CREATE_USER_TABLE_SQL);
 });
 
-module.exports = db;
+const queries = {
+    GET_USER_UUID_BY_EMAIL_SQL: `SELECT user_uuid FROM users WHERE email=$email`,
+    GET_ALL_USERS_DATA_SQL: 'SELECT * FROM users',
+    ADD_NEW_USER_SQL: 'INSERT INTO users VALUES ($uuid, $email)',
+}
+
+module.exports = {db, ...queries};
